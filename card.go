@@ -24,7 +24,6 @@ func (c Card) Describe() {
 	fmt.Printf("Card: %s is worth %d points, when played has \"%s\" effect\n", c.Name(), c.Points(), c.Action())
 }
 
-func (d Deck) AvailableCards() []Card { return d.availableCards }
 func NewDeck() Deck {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	countess := Card{7, "Countess", "Must discard this card when held with a King or Prince"}
@@ -62,7 +61,7 @@ func NewDeck() Deck {
 }
 
 func (d Deck) Describe() {
-	for _, card := range d.AvailableCards() {
+	for _, card := range d.availableCards {
 		card.Describe()
 	}
 }
