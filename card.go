@@ -12,6 +12,7 @@ type Card struct {
 
 type Deck struct {
 	numberInDeck   int
+	active         bool
 	availableCards []Card
 	burntCard      interface{}
 	discardedCards interface{}
@@ -54,13 +55,17 @@ func NewDeck() Deck {
 	for i := 0; i < 5; i++ {
 		availableCards = append(availableCards, guard)
 	}
-	deck := Deck{13, availableCards, nil, nil}
-	fmt.Printf("available cards has %d elements", len(availableCards))
+	deck := Deck{16, true, availableCards, nil, nil}
 
 	return deck
 }
 
 func (d Deck) Describe() {
+	if d.active {
+		fmt.Println("Deck is active")
+	} else {
+		fmt.Println("Deck is not active")
+	}
 	for _, card := range d.availableCards {
 		card.Describe()
 	}
