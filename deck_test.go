@@ -33,7 +33,8 @@ func TestDrawingLastCardFromDeck(t *testing.T) {
 	var availableCards []Card
 	var burntCard Card
 	var discardedCards []Card
-	var drawnCards []Card
+	var drawnCard Card
+	var err error
 	availableCards = append(availableCards, princess)
 	deck := Deck{true, availableCards, burntCard, discardedCards}
 
@@ -41,11 +42,12 @@ func TestDrawingLastCardFromDeck(t *testing.T) {
 		t.Fatalf("Deck should contain 1 card, but contains %d cards", deck.NumberInDeck())
 	}
 
-	drawnCards = deck.Draw(1)
-	if len(drawnCards) != 1 {
-		t.Fatal("Draw failed to return a card")
+	err, drawnCard = deck.Draw()
+	if err != nil {
+		t.Fatal(err)
 	}
-	if drawnCards[0].Name() != "Princess" {
+
+	if drawnCard.Name() != "Princess" {
 		t.Error("The wrong card was drawn from the deck")
 	}
 
@@ -57,7 +59,7 @@ func TestDrawingLastCardFromDeck(t *testing.T) {
 
 func TestDrawingCardsFromDeck(t *testing.T) {
 	//var availableCards []Card
-	//var drawnCards []Card
+	//var drawnCard Card
 	deck := NewDeck()
 	deck.Active = false
 
