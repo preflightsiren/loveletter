@@ -79,6 +79,10 @@ func (d *Deck) Update() {
 	d.Active = (len(d.availableCards) > 0)
 }
 
+func (d *Deck) Discard(card Card) {
+	d.discardedCards = append(d.discardedCards, card)
+}
+
 func (d *Deck) Draw() (error, Card) {
 	var drawnCard Card
 	if d.Active {

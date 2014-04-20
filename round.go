@@ -23,5 +23,17 @@ func (r *Round) Init(players []*Player) *Round {
 	}
 	return r
 }
+func (r *Round) nextPlayer() {
+	r.currentPlayerIndex++
+}
+func (r *Round) DrawForCurrentPlayer() {
+	var err error
+	var card Card
+	err, card = r.Deck.Draw()
+	if err != nil {
+		//end round.
+	}
+	r.CurrentPlayer().ReceiveCard(card)
+}
 
 func NewRound(players []*Player) *Round { return new(Round).Init(players) }
