@@ -16,10 +16,12 @@ func TestNumberOfCardsInDeck(t *testing.T) {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	countess := Card{7, "Countess", "Must discard this card when held with a King or Prince"}
 	var availableCards []Card
+	var burntCard Card
+	var discardedCards []Card
 
 	availableCards = append(availableCards, princess)
 	availableCards = append(availableCards, countess)
-	deck := Deck{true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, burntCard, discardedCards}
 
 	if !(deck.NumberInDeck() == 2) {
 		t.Error("After initialisation, Deck did not contain 2 cards.")
@@ -29,9 +31,11 @@ func TestNumberOfCardsInDeck(t *testing.T) {
 func TestDrawingLastCardFromDeck(t *testing.T) {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	var availableCards []Card
+	var burntCard Card
+	var discardedCards []Card
 	var drawnCards []Card
 	availableCards = append(availableCards, princess)
-	deck := Deck{true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, burntCard, discardedCards}
 
 	if deck.NumberInDeck() != 1 {
 		t.Fatalf("Deck should contain 1 card, but contains %d cards", deck.NumberInDeck())
@@ -55,15 +59,17 @@ func TestDrawingCardsFromDeck(t *testing.T) {
 	//var availableCards []Card
 	//var drawnCards []Card
 	deck := NewDeck()
-	deck.Describe()
+	deck.Active = false
 
 }
 
 func ExampleDescribeDeckF() {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	var availableCards []Card
+	var burntCard Card
+	var discardedCards []Card
 	availableCards = append(availableCards, princess)
-	deck := Deck{true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, burntCard, discardedCards}
 	deck.Describe()
 
 	// Output:

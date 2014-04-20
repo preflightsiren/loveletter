@@ -7,8 +7,8 @@ import (
 type Deck struct {
 	Active         bool
 	availableCards []Card
-	burntCard      interface{}
-	discardedCards interface{}
+	burntCard      Card
+	discardedCards []Card
 }
 
 func (d *Deck) NumberInDeck() int { return len(d.availableCards) }
@@ -58,6 +58,8 @@ func (d *Deck) Describe() {
 		fmt.Println("Deck is active")
 	} else {
 		fmt.Println("Deck is not active")
+		fmt.Printf("Burnt card was:")
+		d.burntCard.Describe()
 	}
 	for _, card := range d.availableCards {
 		card.Describe()
