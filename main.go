@@ -29,6 +29,8 @@ func main() {
 	for i := 0; i < currentRound.NumberOfActivePlayers(); i++ {
 		fmt.Printf("%s has %s in their hand\n", players[i].Name, players[i].Hand[0].Name())
 	}
+	fmt.Println("====Log====")
+	currentRound.PrintLog()
 }
 
 // Order of play:

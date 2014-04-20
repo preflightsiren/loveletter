@@ -28,6 +28,6 @@ func (p *Player) Discard() error {
 	index := len(p.Hand) - 1
 	discardedCard := p.Hand[index]
 	p.Hand = append(p.Hand[:index], p.Hand[index+1:]...)
-	p.CurrentRound.Discard(discardedCard)
+	p.CurrentRound.Discard(p, discardedCard)
 	return nil
 }
