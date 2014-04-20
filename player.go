@@ -1,6 +1,8 @@
 package main
 
-import ()
+import (
+	"errors"
+)
 
 type Player struct {
 	Name         string
@@ -19,10 +21,14 @@ func (p *Player) ReceiveCard(card Card) {
 	p.Hand = append(p.Hand, card)
 }
 
-func (p *Player) Discard() {
+func (p *Player) Discard() error {
+	if len(p.Hand) == 0 {
+		return errors.New("Cannot discard a card from an empty hand")
+	}
 	deck := p.CurrentRound.Deck
-	index := len(deck.availableCards) - 1
+	index := len(p.Hand) - 1
 	discardedCard := p.Hand[index]
 	p.Hand = append(p.Hand[:index], p.Hand[index+1:]...)
 	deck.Discard(discardedCard)
+	return nil
 }

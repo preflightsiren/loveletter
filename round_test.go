@@ -21,11 +21,14 @@ func TestNumberOfPlayers(t *testing.T) {
 	}
 }
 
-func TestSettingPlayersCurrentRound(t *testing.T) {
+func TestInitialisationOfRound(t *testing.T) {
 	players := []*Player{NewPlayer("Player1")}
 	p1 := players[0]
 	r := NewRound(players)
 	if p1.CurrentRound != r {
 		t.Error("Expected player to be enrolled in the current round but was not.")
+	}
+	if len(p1.Hand) != 1 {
+		t.Errorf("Expected player to have 1 card in their hand, but had %d cards", len(p1.Hand))
 	}
 }
