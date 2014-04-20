@@ -25,10 +25,9 @@ func (p *Player) Discard() error {
 	if len(p.Hand) == 0 {
 		return errors.New("Cannot discard a card from an empty hand")
 	}
-	deck := p.CurrentRound.Deck
 	index := len(p.Hand) - 1
 	discardedCard := p.Hand[index]
 	p.Hand = append(p.Hand[:index], p.Hand[index+1:]...)
-	deck.Discard(discardedCard)
+	p.CurrentRound.Discard(discardedCard)
 	return nil
 }
