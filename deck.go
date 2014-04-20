@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"time"
@@ -49,7 +50,7 @@ func (d *Deck) Init() *Deck {
 	}
 	d.availableCards = availableCards
 	d.Active = true
-	d.burntCard = (d.Draw(1))[0]
+	_, d.burntCard = d.Draw()
 	d.discardedCards = []Card{}
 
 	return d
@@ -68,13 +69,21 @@ func (d *Deck) Describe() {
 	}
 }
 
-func (d *Deck) Draw(numberOfCards int) []Card {
-	var drawnCards []Card
-	for i := 0; i < numberOfCards; i++ {
+func (d *Deck) Update() {
+	d.Active = (len(d.availableCards) > 0)
+}
+
+func (d *Deck) Draw() (error, Card) {
+	var drawnCard Card
+	if d.Active {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		index := r.Intn(len(d.availableCards))
-		drawnCards = append(drawnCards, d.availableCards[index])
+		drawnCard = d.availableCards[index]
 		d.availableCards = append(d.availableCards[:index], d.availableCards[index+1:]...)
+		d.Update()
+	} else {
+		err := errors.New("no more cards can be drawn from this deck")
+		return err, Card{}
 	}
-	return drawnCards
+	return nil, drawnCard
 }
