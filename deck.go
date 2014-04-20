@@ -8,7 +8,6 @@ import (
 )
 
 type Deck struct {
-	Active         bool
 	availableCards []Card
 	burntCard      Card
 	discardedCards []Card
@@ -55,7 +54,6 @@ func (d *Deck) Init() *Deck {
 		availableCards = append(availableCards, guard)
 	}
 	d.availableCards = availableCards
-	d.Active = true
 	_, d.burntCard = d.Draw()
 	d.discardedCards = []Card{}
 
@@ -63,7 +61,7 @@ func (d *Deck) Init() *Deck {
 }
 
 func (d *Deck) Describe() {
-	if d.Active {
+	if d.Active() {
 		fmt.Println("Deck is active")
 	} else {
 		fmt.Println("Deck is not active")
@@ -75,9 +73,7 @@ func (d *Deck) Describe() {
 	}
 }
 
-func (d *Deck) Update() {
-	d.Active = (len(d.availableCards) > 0)
-}
+func (d *Deck) Active() bool { return (len(d.availableCards) > 0) }
 
 func (d *Deck) Discard(card Card) {
 	d.discardedCards = append(d.discardedCards, card)
@@ -85,12 +81,11 @@ func (d *Deck) Discard(card Card) {
 
 func (d *Deck) Draw() (error, Card) {
 	var drawnCard Card
-	if d.Active {
+	if d.Active() {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		index := r.Intn(len(d.availableCards))
 		drawnCard = d.availableCards[index]
 		d.availableCards = append(d.availableCards[:index], d.availableCards[index+1:]...)
-		d.Update()
 	} else {
 		err := errors.New("no more cards can be drawn from this deck")
 		return err, Card{}

@@ -8,8 +8,8 @@ func TestRoundCreation(t *testing.T) {
 	players := []*Player{NewPlayer("Player1"), NewPlayer("Player2")}
 	r := NewRound(players)
 
-	if r.Active != true {
-		t.Errorf("Expected Round.Active to be true but was %b", r.Active)
+	if r.Active() != true {
+		t.Errorf("Expected Round.Active to be true but was %t", r.Active())
 	}
 }
 

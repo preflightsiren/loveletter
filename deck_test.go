@@ -6,7 +6,7 @@ import (
 
 func TestNewDeckIsReadyForPlay(t *testing.T) {
 	deck := NewDeck()
-	if !deck.Active {
+	if !deck.Active() {
 		t.Fail()
 	}
 	return
@@ -21,7 +21,7 @@ func TestNumberOfCardsInDeck(t *testing.T) {
 
 	availableCards = append(availableCards, princess)
 	availableCards = append(availableCards, countess)
-	deck := Deck{true, availableCards, burntCard, discardedCards}
+	deck := Deck{availableCards, burntCard, discardedCards}
 
 	if !(deck.NumberInDeck() == 2) {
 		t.Error("After initialisation, Deck did not contain 2 cards.")
@@ -36,7 +36,7 @@ func TestDrawingLastCardFromDeck(t *testing.T) {
 	var drawnCard Card
 	var err error
 	availableCards = append(availableCards, princess)
-	deck := Deck{true, availableCards, burntCard, discardedCards}
+	deck := Deck{availableCards, burntCard, discardedCards}
 
 	if deck.NumberInDeck() != 1 {
 		t.Fatalf("Deck should contain 1 card, but contains %d cards", deck.NumberInDeck())
@@ -55,14 +55,10 @@ func TestDrawingLastCardFromDeck(t *testing.T) {
 		t.Errorf("Deck should be empty, but contains %d cards", deck.NumberInDeck())
 		deck.Describe()
 	}
-}
 
-func TestDrawingCardsFromDeck(t *testing.T) {
-	//var availableCards []Card
-	//var drawnCard Card
-	deck := NewDeck()
-	deck.Active = false
-
+	if deck.Active() != false {
+		t.Errorf("Expected deck.Active to be false but was %t", deck.Active())
+	}
 }
 
 func ExampleDescribeDeckF() {
@@ -71,7 +67,7 @@ func ExampleDescribeDeckF() {
 	var burntCard Card
 	var discardedCards []Card
 	availableCards = append(availableCards, princess)
-	deck := Deck{true, availableCards, burntCard, discardedCards}
+	deck := Deck{availableCards, burntCard, discardedCards}
 	deck.Describe()
 
 	// Output:
