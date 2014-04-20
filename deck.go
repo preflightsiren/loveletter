@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 type Deck struct {
@@ -69,12 +71,10 @@ func (d *Deck) Describe() {
 func (d *Deck) Draw(numberOfCards int) []Card {
 	var drawnCards []Card
 	for i := 0; i < numberOfCards; i++ {
-		index := (i + 1) % len(d.availableCards)
+		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		index := r.Intn(len(d.availableCards))
 		drawnCards = append(drawnCards, d.availableCards[index])
 		d.availableCards = append(d.availableCards[:index], d.availableCards[index+1:]...)
-		//Random Number
-		// Pop card from availableCards
-		//return cards
 	}
 	return drawnCards
 }
