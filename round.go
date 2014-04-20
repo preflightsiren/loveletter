@@ -42,14 +42,20 @@ func (r *Round) Init(players []*Player) *Round {
 func (r *Round) nextPlayer() {
 	r.currentPlayerIndex = (r.currentPlayerIndex + 1) % r.NumberOfPlayers()
 	r.Log(fmt.Sprintf("It's now %s's turn", r.CurrentPlayer().Name))
+	if r.Active() {
+		r.DrawForCurrentPlayer()
+	}
 }
 func (r *Round) Discard(player *Player, card Card) {
 	r.Log(fmt.Sprintf("%s just discarded card: %s", player.Name, card.Name()))
+	r.Log(fmt.Sprintf("it has the effect of %s", player.Name, card.Action()))
 	r.Deck.Discard(card)
+	r.nextPlayer()
 }
 func (r *Round) DrawForCurrentPlayer() {
 	var err error
 	var card Card
+	r.Log(fmt.Sprintf("%s draws a new card", r.CurrentPlayer().Name))
 	err, card = r.Deck.Draw()
 	if err != nil {
 		//end round.
