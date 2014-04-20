@@ -5,17 +5,17 @@ import ()
 type Round struct {
 	Active        bool
 	Deck          *Deck
-	Players       []Player
+	Players       []*Player
 	CurrentPlayer *Player
 }
 
 func (r *Round) NumberOfPlayers() int { return len(r.Players) }
-func (r *Round) Init() *Round {
+func (r *Round) Init(players []*Player) *Round {
 	r.Active = true
 	r.Deck = NewDeck()
-	r.Players = []Player{}
-	r.CurrentPlayer = &r.Players[0]
+	r.Players = players
+	r.CurrentPlayer = r.Players[0]
 	return r
 }
 
-func NewRound() *Round { return new(Round).Init() }
+func NewRound(players []*Player) *Round { return new(Round).Init(players) }
