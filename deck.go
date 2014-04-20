@@ -14,6 +14,12 @@ type Deck struct {
 	discardedCards []Card
 }
 
+const NUMBER_OF_GUARDS = 5
+const NUMBER_OF_PRIESTS = 2
+const NUMBER_OF_BARONS = 2
+const NUMBER_OF_HANDMAIDENS = 2
+const NUMBER_OF_PRINCES = 2
+
 func (d *Deck) NumberInDeck() int { return len(d.availableCards) }
 
 func NewDeck() *Deck { return new(Deck).Init() }
@@ -33,19 +39,19 @@ func (d *Deck) Init() *Deck {
 	availableCards = append(availableCards, princess)
 	availableCards = append(availableCards, countess)
 	availableCards = append(availableCards, king)
-	for i := 0; i < 2; i++ {
+	for i := 0; i < NUMBER_OF_PRINCES; i++ {
 		availableCards = append(availableCards, prince)
 	}
-	for i := 0; i < 2; i++ {
+	for i := 0; i < NUMBER_OF_HANDMAIDENS; i++ {
 		availableCards = append(availableCards, handmaiden)
 	}
-	for i := 0; i < 2; i++ {
+	for i := 0; i < NUMBER_OF_BARONS; i++ {
 		availableCards = append(availableCards, baron)
 	}
-	for i := 0; i < 2; i++ {
+	for i := 0; i < NUMBER_OF_PRIESTS; i++ {
 		availableCards = append(availableCards, priest)
 	}
-	for i := 0; i < 5; i++ {
+	for i := 0; i < NUMBER_OF_GUARDS; i++ {
 		availableCards = append(availableCards, guard)
 	}
 	d.availableCards = availableCards
