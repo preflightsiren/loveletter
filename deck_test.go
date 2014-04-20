@@ -26,7 +26,7 @@ func TestNumberOfCardsInDeck(t *testing.T) {
 	}
 }
 
-func TestDrawingCardsFromDeck(t *testing.T) {
+func TestDrawingLastCardFromDeck(t *testing.T) {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	var availableCards []Card
 	var drawnCards []Card
@@ -51,27 +51,22 @@ func TestDrawingCardsFromDeck(t *testing.T) {
 	}
 }
 
-func ExampleDescribeDeckF() {
+func TestDrawingCardsFromDeck(t *testing.T) {
+	//var availableCards []Card
+	//var drawnCards []Card
 	deck := NewDeck()
+	deck.Describe()
+
+}
+
+func ExampleDescribeDeckF() {
+	princess := Card{8, "Princess", "Discarding this card loses the game"}
+	var availableCards []Card
+	availableCards = append(availableCards, princess)
+	deck := Deck{true, availableCards, nil, nil}
 	deck.Describe()
 
 	// Output:
 	// Deck is active
 	// Card: Princess is worth 8 points, when played has "Discarding this card loses the game" effect
-	// Card: Countess is worth 7 points, when played has "Must discard this card when held with a King or Prince" effect
-	// Card: King is worth 6 points, when played has "Trade hands with another player of your choice" effect
-	// Card: Prince is worth 5 points, when played has "Choose any player (including yourself) to discard his or her hand and draw a new card" effect
-	// Card: Prince is worth 5 points, when played has "Choose any player (including yourself) to discard his or her hand and draw a new card" effect
-	// Card: Handmaiden is worth 4 points, when played has "Until your next turn, ignore all effects from other players cards" effect
-	// Card: Handmaiden is worth 4 points, when played has "Until your next turn, ignore all effects from other players cards" effect
-	// Card: Baron is worth 3 points, when played has "You and another player secretly compare hands. The player with the lower value is out of the round" effect
-	// Card: Baron is worth 3 points, when played has "You and another player secretly compare hands. The player with the lower value is out of the round" effect
-	// Card: Priest is worth 2 points, when played has "Look at another players hand" effect
-	// Card: Priest is worth 2 points, when played has "Look at another players hand" effect
-	// Card: Guard is worth 1 points, when played has "Name a non-Guard card and choose another player. If that player has that card, he or she is out of the round" effect
-	// Card: Guard is worth 1 points, when played has "Name a non-Guard card and choose another player. If that player has that card, he or she is out of the round" effect
-	// Card: Guard is worth 1 points, when played has "Name a non-Guard card and choose another player. If that player has that card, he or she is out of the round" effect
-	// Card: Guard is worth 1 points, when played has "Name a non-Guard card and choose another player. If that player has that card, he or she is out of the round" effect
-	// Card: Guard is worth 1 points, when played has "Name a non-Guard card and choose another player. If that player has that card, he or she is out of the round" effect
-
 }

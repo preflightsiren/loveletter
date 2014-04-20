@@ -13,7 +13,9 @@ type Deck struct {
 
 func (d *Deck) NumberInDeck() int { return len(d.availableCards) }
 
-func NewDeck() Deck {
+func NewDeck() *Deck { return new(Deck).Init() }
+
+func (d *Deck) Init() *Deck {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
 	countess := Card{7, "Countess", "Must discard this card when held with a King or Prince"}
 	king := Card{6, "King", "Trade hands with another player of your choice"}
@@ -43,9 +45,12 @@ func NewDeck() Deck {
 	for i := 0; i < 5; i++ {
 		availableCards = append(availableCards, guard)
 	}
-	deck := Deck{true, availableCards, nil, nil}
+	d.availableCards = availableCards
+	d.Active = true
+	d.burntCard = (d.Draw(1))[0]
+	d.discardedCards = []Card{}
 
-	return deck
+	return d
 }
 
 func (d *Deck) Describe() {
