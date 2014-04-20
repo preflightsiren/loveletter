@@ -3,18 +3,24 @@ package main
 import ()
 
 type Round struct {
-	Active        bool
-	Deck          *Deck
-	Players       []*Player
-	CurrentPlayer *Player
+	Active             bool
+	Deck               *Deck
+	Players            []*Player
+	currentPlayerIndex int
 }
 
-func (r *Round) NumberOfPlayers() int { return len(r.Players) }
+func (r *Round) NumberOfPlayers() int   { return len(r.Players) }
+func (r *Round) CurrentPlayer() *Player { return r.Players[r.currentPlayerIndex] }
 func (r *Round) Init(players []*Player) *Round {
 	r.Active = true
 	r.Deck = NewDeck()
 	r.Players = players
-	r.CurrentPlayer = r.Players[0]
+	r.currentPlayerIndex = 0
+	for i := 0; i < len(players); i++ {
+		_, card : = r.Deck.Draw()
+		players[i].CurrentRound = r
+		players[i].ReceiveCard(card)
+	}
 	return r
 }
 
