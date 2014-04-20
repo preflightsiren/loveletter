@@ -17,7 +17,7 @@ func (r *Round) Init(players []*Player) *Round {
 	r.Players = players
 	r.currentPlayerIndex = 0
 	for i := 0; i < len(players); i++ {
-		_, card : = r.Deck.Draw()
+		_, card := r.Deck.Draw()
 		players[i].CurrentRound = r
 		players[i].ReceiveCard(card)
 	}

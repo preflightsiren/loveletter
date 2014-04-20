@@ -21,7 +21,7 @@ func (p *Player) ReceiveCard(card Card) {
 
 func (p *Player) Discard() {
 	deck := p.CurrentRound.Deck
-	index := len(d.availableCards) - 1
+	index := len(deck.availableCards) - 1
 	discardedCard := p.Hand[index]
 	p.Hand = append(p.Hand[:index], p.Hand[index+1:]...)
 	deck.Discard(discardedCard)
