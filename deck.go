@@ -5,14 +5,13 @@ import (
 )
 
 type Deck struct {
-	numberInDeck   int
 	Active         bool
 	availableCards []Card
 	burntCard      interface{}
 	discardedCards interface{}
 }
 
-func (d Deck) NumberInDeck() int { return d.numberInDeck }
+func (d *Deck) NumberInDeck() int { return len(d.availableCards) }
 
 func NewDeck() Deck {
 	princess := Card{8, "Princess", "Discarding this card loses the game"}
@@ -44,12 +43,12 @@ func NewDeck() Deck {
 	for i := 0; i < 5; i++ {
 		availableCards = append(availableCards, guard)
 	}
-	deck := Deck{len(availableCards), true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, nil, nil}
 
 	return deck
 }
 
-func (d Deck) Describe() {
+func (d *Deck) Describe() {
 	if d.Active {
 		fmt.Println("Deck is active")
 	} else {
@@ -60,9 +59,12 @@ func (d Deck) Describe() {
 	}
 }
 
-func (d Deck) Draw(numberOfCards int) []Card {
+func (d *Deck) Draw(numberOfCards int) []Card {
 	var drawnCards []Card
 	for i := 0; i < numberOfCards; i++ {
+		index := (i + 1) % len(d.availableCards)
+		drawnCards = append(drawnCards, d.availableCards[index])
+		d.availableCards = append(d.availableCards[:index], d.availableCards[index+1:]...)
 		//Random Number
 		// Pop card from availableCards
 		//return cards

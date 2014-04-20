@@ -19,7 +19,7 @@ func TestNumberOfCardsInDeck(t *testing.T) {
 
 	availableCards = append(availableCards, princess)
 	availableCards = append(availableCards, countess)
-	deck := Deck{len(availableCards), true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, nil, nil}
 
 	if !(deck.NumberInDeck() == 2) {
 		t.Error("After initialisation, Deck did not contain 2 cards.")
@@ -31,23 +31,27 @@ func TestDrawingCardsFromDeck(t *testing.T) {
 	var availableCards []Card
 	var drawnCards []Card
 	availableCards = append(availableCards, princess)
-	deck := Deck{len(availableCards), true, availableCards, nil, nil}
+	deck := Deck{true, availableCards, nil, nil}
 
 	if deck.NumberInDeck() != 1 {
 		t.Fatalf("Deck should contain 1 card, but contains %d cards", deck.NumberInDeck())
 	}
 
 	drawnCards = deck.Draw(1)
+	if len(drawnCards) != 1 {
+		t.Fatal("Draw failed to return a card")
+	}
 	if drawnCards[0].Name() != "Princess" {
 		t.Error("The wrong card was drawn from the deck")
 	}
 
 	if deck.NumberInDeck() != 0 {
 		t.Errorf("Deck should be empty, but contains %d cards", deck.NumberInDeck())
+		deck.Describe()
 	}
 }
 
-func ExampleF() {
+func ExampleDescribeDeckF() {
 	deck := NewDeck()
 	deck.Describe()
 
