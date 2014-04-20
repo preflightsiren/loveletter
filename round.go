@@ -24,7 +24,7 @@ func (r *Round) Init(players []*Player) *Round {
 	return r
 }
 func (r *Round) nextPlayer() {
-	r.currentPlayerIndex++
+	r.currentPlayerIndex = (r.currentPlayerIndex + 1) % r.NumberOfPlayers()
 }
 func (r *Round) DrawForCurrentPlayer() {
 	var err error
